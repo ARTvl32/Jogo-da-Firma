@@ -41,6 +41,7 @@ func _ready() -> void:
 	animacao.tocar_para_estado(combate.estado_atual)
 	hitbox.desativar()
 	_atualizar_posicao_hitbox()
+	sprite.flip_h = not olhando_direita
 
 func _physics_process(delta: float) -> void:
 	if hitstop_frames > 0:
