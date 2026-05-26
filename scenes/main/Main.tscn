@@ -1,0 +1,13 @@
+[gd_scene load_steps=1 format=3 uid="uid://b3xqp8mf5cjt7"]
+
+[node name="Main" type="Node"]
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 320.0
+offset_right = 940.0
+offset_bottom = 400.0
+text = "Los Candidos — Setup OK"
+horizontal_alignment = 1
+vertical_alignment = 1
