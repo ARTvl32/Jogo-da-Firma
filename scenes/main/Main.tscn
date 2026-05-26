@@ -1,13 +1,50 @@
-[gd_scene load_steps=1 format=3 uid="uid://b3xqp8mf5cjt7"]
+[gd_scene load_steps=5 format=3 uid="uid://b3xqp8mf5cjt7"]
+
+[ext_resource type="PackedScene" path="res://scenes/fighters/FighterBase.tscn" id="1_fighter"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
+size = Vector2(2000, 40)
+
+[sub_resource type="GDScript" id="GDScript_main"]
+script/source = "extends Node
+
+func _ready() -> void:
+	var p1: FighterBase = $Fighters/Fighter1
+	var p2: FighterBase = $Fighters/Fighter2
+	p1.definir_oponente(p2)
+	p2.definir_oponente(p1)
+"
 
 [node name="Main" type="Node"]
+script = SubResource("GDScript_main")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
+[node name="LabelSetup" type="Label" parent="."]
 offset_left = 340.0
-offset_top = 320.0
+offset_top = 10.0
 offset_right = 940.0
-offset_bottom = 400.0
-text = "Los Candidos — Setup OK"
+offset_bottom = 40.0
+text = "Los Candidos — Setup OK | WASD + UJIKO = P1 | Setas + Numpad = P2"
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="Chao" type="StaticBody2D" parent="."]
+position = Vector2(640, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chao"]
+shape = SubResource("RectangleShape2D_chao")
+
+[node name="ColorRect" type="ColorRect" parent="Chao"]
+offset_left = -1000.0
+offset_top = -20.0
+offset_right = 1000.0
+offset_bottom = 20.0
+color = Color(0.3, 0.3, 0.3, 1)
+
+[node name="Fighters" type="Node2D" parent="."]
+
+[node name="Fighter1" parent="Fighters" instance=ExtResource("1_fighter")]
+position = Vector2(480, 480)
+player_index = 1
+
+[node name="Fighter2" parent="Fighters" instance=ExtResource("1_fighter")]
+position = Vector2(800, 480)
+player_index = 2

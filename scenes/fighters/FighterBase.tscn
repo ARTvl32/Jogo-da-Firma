@@ -1,0 +1,123 @@
+[gd_scene load_steps=12 format=3 uid="uid://c1fightbase01"]
+
+[ext_resource type="Script" path="res://scripts/fighters/FighterBase.gd" id="1_fighter"]
+[ext_resource type="Script" path="res://scripts/componentes/ComponenteVida.gd" id="2_vida"]
+[ext_resource type="Script" path="res://scripts/componentes/ComponenteCombate.gd" id="3_combate"]
+[ext_resource type="Script" path="res://scripts/componentes/ControladorAnimacao.gd" id="4_anim"]
+[ext_resource type="Script" path="res://scripts/combate/Hitbox.gd" id="5_hitbox"]
+[ext_resource type="Script" path="res://scripts/combate/Hurtbox.gd" id="6_hurtbox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+size = Vector2(60, 120)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1"]
+size = Vector2(80, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1"]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": false,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": true,
+"name": &"fall",
+"speed": 10.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": false,
+"name": &"crouch",
+"speed": 12.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": false,
+"name": &"attack_lp",
+"speed": 15.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": false,
+"name": &"attack_lk",
+"speed": 15.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": false,
+"name": &"attack_hp",
+"speed": 12.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": false,
+"name": &"attack_hk",
+"speed": 12.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": false,
+"name": &"block",
+"speed": 10.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": false,
+"name": &"hurt",
+"speed": 12.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("PlaceholderTexture2D_1")}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(80, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(60, 120)
+
+[node name="FighterBase" type="CharacterBody2D"]
+script = ExtResource("1_fighter")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_corpo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="ComponenteVida" type="Node" parent="."]
+script = ExtResource("2_vida")
+
+[node name="ComponenteCombate" type="Node" parent="."]
+script = ExtResource("3_combate")
+
+[node name="ControladorAnimacao" type="Node" parent="."]
+script = ExtResource("4_anim")
+sprite_path = NodePath("../AnimatedSprite2D")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("5_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(60, 0)
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("6_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_hurtbox")
