@@ -6,7 +6,6 @@ extends Node2D
 
 signal round_terminou(vencedor: int)
 
-const EFEITO_HIT_SCENE: PackedScene = preload("res://scenes/efeitos/EfeitoHit.tscn")
 const PARTICULAS_HIT_SCENE: PackedScene = preload("res://scenes/efeitos/ParticulasHit.tscn")
 const CENA_VIP: PackedScene = preload("res://scenes/fighters/personagens/VIP/VIP.tscn")
 const CENA_MDK: PackedScene = preload("res://scenes/fighters/personagens/MDK/MDK.tscn")
@@ -118,9 +117,6 @@ func _atualizar_camera() -> void:
 func _on_acerto(_alvo: Node, atacante: FighterBase) -> void:
 	var pos: Vector2 = (atacante.global_position + atacante.conhece_oponente.global_position) * 0.5
 	pos.y -= 60.0
-	var spark: Node2D = EFEITO_HIT_SCENE.instantiate()
-	spark.global_position = pos
-	add_child(spark)
 	var parts: Node2D = PARTICULAS_HIT_SCENE.instantiate()
 	parts.global_position = pos
 	add_child(parts)
