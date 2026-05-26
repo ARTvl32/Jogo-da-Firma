@@ -18,6 +18,8 @@ func _ready() -> void:
 	rng.seed = 42
 	if camera_path:
 		camera = get_node(camera_path)
+	elif get_parent() is Camera2D:
+		camera = get_parent() as Camera2D
 
 func _process(delta: float) -> void:
 	if camera == null:
