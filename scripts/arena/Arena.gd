@@ -2,15 +2,19 @@ class_name Arena
 extends Node2D
 
 # === Arena ===
-# Cena de combate. Gerencia round, timer, fighters e câmera.
+# Cena de combate. Gerencia round, timer, fighters, câmera e juice.
 
 signal round_terminou(vencedor: int)
+
+const EFEITO_HIT_SCENE: PackedScene = preload("res://scenes/efeitos/EfeitoHit.tscn")
+const PARTICULAS_HIT_SCENE: PackedScene = preload("res://scenes/efeitos/ParticulasHit.tscn")
 
 @export var duracao_round_segundos: int = 99
 
 @onready var fighter1: FighterBase = $Fighters/Fighter1
 @onready var fighter2: FighterBase = $Fighters/Fighter2
 @onready var camera: Camera2D = $Camera2D
+@onready var screen_shake: ScreenShake = $Camera2D/ScreenShake
 @onready var hud: Control = $HUD
 @onready var timer_round: Timer = $TimerRound
 
@@ -29,6 +33,9 @@ func _ready() -> void:
 		hud.conectar_fighters(fighter1, fighter2)
 	# Timer
 	timer_round.timeout.connect(_on_timer_tick)
+	# Juice: conecta sinais de acerto para efeitos visuais
+	fighter1.combate.acertou.connect(_on_acerto.bind(fighter1))
+	fighter2.combate.acertou.connect(_on_acerto.bind(fighter2))
 	_iniciar_round()
 
 func _process(_delta: float) -> void:
@@ -84,3 +91,22 @@ func _atualizar_camera() -> void:
 	# Posiciona câmera no ponto médio horizontal dos dois fighters
 	var meio_x: float = (fighter1.global_position.x + fighter2.global_position.x) * 0.5
 	camera.global_position.x = lerp(camera.global_position.x, meio_x, 0.1)
+
+func _on_acerto(_alvo: Node, atacante: FighterBase) -> void:
+	# Ponto de impacto: meio entre atacante e oponente, na altura do tronco
+	var pos: Vector2 = (atacante.global_position + atacante.conhece_oponente.global_position) * 0.5
+	pos.y -= 60.0
+	# Spark
+	var spark: Node2D = EFEITO_HIT_SCENE.instantiate()
+	spark.global_position = pos
+	add_child(spark)
+	# Partículas
+	var parts: Node2D = PARTICULAS_HIT_SCENE.instantiate()
+	parts.global_position = pos
+	add_child(parts)
+	# Screen shake — mais forte em heavy hits
+	var fd: Dictionary = ComponenteCombate.FRAME_DATA.get(atacante.combate.estado_atual, {})
+	if not fd.is_empty():
+		var dano: int = fd.get("dano", 60)
+		var forca: float = 0.3 if dano < 100 else 0.6
+		screen_shake.tremer(forca)
