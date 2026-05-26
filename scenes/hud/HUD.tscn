@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5hudscene001"]
+
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="HealthBar1" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 20.0
+offset_right = 540.0
+offset_bottom = 50.0
+show_percentage = false
+value = 100.0
+
+[node name="HealthBar2" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 740.0
+offset_top = 20.0
+offset_right = 1240.0
+offset_bottom = 50.0
+show_percentage = false
+fill_mode = 1
+value = 100.0
+
+[node name="TimerLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 580.0
+offset_top = 10.0
+offset_right = 700.0
+offset_bottom = 60.0
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ComboLabel1" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 58.0
+offset_right = 340.0
+offset_bottom = 85.0
+text = ""
+modulate = Color(0.945, 0.769, 0.059, 1)
+
+[node name="ComboLabel2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 940.0
+offset_top = 58.0
+offset_right = 1240.0
+offset_bottom = 85.0
+text = ""
+modulate = Color(0.945, 0.769, 0.059, 1)
+horizontal_alignment = 2
