@@ -39,6 +39,7 @@ func _ready() -> void:
 	vida.morreu.connect(_on_morreu)
 	animacao.tocar_para_estado(combate.estado_atual)
 	hitbox.desativar()
+	_atualizar_posicao_hitbox()
 
 func _physics_process(delta: float) -> void:
 	if hitstop_frames > 0:
@@ -156,6 +157,12 @@ func _atualizar_facing() -> void:
 	if deveria_olhar_direita != olhando_direita:
 		olhando_direita = deveria_olhar_direita
 		sprite.flip_h = not olhando_direita
+		_atualizar_posicao_hitbox()
+
+func _atualizar_posicao_hitbox() -> void:
+	var shape: CollisionShape2D = hitbox.get_node("CollisionShape2D")
+	# Espelha o offset X conforme a direção que o fighter olha
+	shape.position.x = 60.0 if olhando_direita else -60.0
 
 func _direcao_horizontal() -> float:
 	var esq: bool = _input_pressionado("left")
