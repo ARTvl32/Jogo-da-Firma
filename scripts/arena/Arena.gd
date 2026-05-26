@@ -8,35 +8,57 @@ signal round_terminou(vencedor: int)
 
 const EFEITO_HIT_SCENE: PackedScene = preload("res://scenes/efeitos/EfeitoHit.tscn")
 const PARTICULAS_HIT_SCENE: PackedScene = preload("res://scenes/efeitos/ParticulasHit.tscn")
+const CENA_VIP: PackedScene = preload("res://scenes/fighters/personagens/VIP/VIP.tscn")
+const CENA_MDK: PackedScene = preload("res://scenes/fighters/personagens/MDK/MDK.tscn")
 
 @export var duracao_round_segundos: int = 99
 
-@onready var fighter1: FighterBase = $Fighters/Fighter1
-@onready var fighter2: FighterBase = $Fighters/Fighter2
 @onready var camera: Camera2D = $Camera2D
 @onready var screen_shake: ScreenShake = $Camera2D/ScreenShake
 @onready var hud: Control = $HUD
 @onready var timer_round: Timer = $TimerRound
+@onready var fighters_node: Node2D = $Fighters
 
+var fighter1: FighterBase
+var fighter2: FighterBase
 var tempo_restante: int = 99
 var round_em_andamento: bool = false
 
 func _ready() -> void:
+	_instanciar_fighters()
 	tempo_restante = duracao_round_segundos
-	# Conecta fighters entre si
 	fighter1.definir_oponente(fighter2)
 	fighter2.definir_oponente(fighter1)
 	fighter1.vida.morreu.connect(func(): _ao_fighter_morrer(2))
 	fighter2.vida.morreu.connect(func(): _ao_fighter_morrer(1))
-	# Configura HUD
 	if hud and hud.has_method("conectar_fighters"):
 		hud.conectar_fighters(fighter1, fighter2)
-	# Timer
 	timer_round.timeout.connect(_on_timer_tick)
-	# Juice: conecta sinais de acerto para efeitos visuais
 	fighter1.combate.acertou.connect(_on_acerto.bind(fighter1))
 	fighter2.combate.acertou.connect(_on_acerto.bind(fighter2))
 	_iniciar_round()
+
+func _instanciar_fighters() -> void:
+	# Limpar filhos existentes (Fighter1/Fighter2 estáticos da cena, se houver)
+	for f in fighters_node.get_children():
+		f.queue_free()
+
+	var nome_p1: String = GameManager.personagem_p1 if GameManager.personagem_p1 != "" else "VIP"
+	var nome_p2: String = GameManager.personagem_p2 if GameManager.personagem_p2 != "" else "MDK"
+
+	var cena_p1: PackedScene = CENA_VIP if nome_p1 == "VIP" else CENA_MDK
+	var cena_p2: PackedScene = CENA_VIP if nome_p2 == "VIP" else CENA_MDK
+
+	fighter1 = cena_p1.instantiate() as FighterBase
+	fighter1.player_index = 1
+	fighter1.global_position = Vector2(400, 460)
+	fighters_node.add_child(fighter1)
+
+	fighter2 = cena_p2.instantiate() as FighterBase
+	fighter2.player_index = 2
+	fighter2.olhando_direita = false
+	fighter2.global_position = Vector2(880, 460)
+	fighters_node.add_child(fighter2)
 
 func _process(_delta: float) -> void:
 	_atualizar_camera()
@@ -88,23 +110,20 @@ func _encerrar_round(vencedor: int) -> void:
 		get_tree().reload_current_scene()
 
 func _atualizar_camera() -> void:
-	# Posiciona câmera no ponto médio horizontal dos dois fighters
+	if fighter1 == null or fighter2 == null:
+		return
 	var meio_x: float = (fighter1.global_position.x + fighter2.global_position.x) * 0.5
 	camera.global_position.x = lerp(camera.global_position.x, meio_x, 0.1)
 
 func _on_acerto(_alvo: Node, atacante: FighterBase) -> void:
-	# Ponto de impacto: meio entre atacante e oponente, na altura do tronco
 	var pos: Vector2 = (atacante.global_position + atacante.conhece_oponente.global_position) * 0.5
 	pos.y -= 60.0
-	# Spark
 	var spark: Node2D = EFEITO_HIT_SCENE.instantiate()
 	spark.global_position = pos
 	add_child(spark)
-	# Partículas
 	var parts: Node2D = PARTICULAS_HIT_SCENE.instantiate()
 	parts.global_position = pos
 	add_child(parts)
-	# Screen shake — mais forte em heavy hits
 	var fd: Dictionary = ComponenteCombate.FRAME_DATA.get(atacante.combate.estado_atual, {})
 	if not fd.is_empty():
 		var dano: int = fd.get("dano", 60)

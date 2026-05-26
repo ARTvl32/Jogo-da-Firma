@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/arena/Arena.gd" id="1_arena"]
 [ext_resource type="Script" path="res://scripts/efeitos/ScreenShake.gd" id="5_shake"]
-[ext_resource type="PackedScene" path="res://scenes/fighters/personagens/VIP/VIP.tscn" id="2_vip"]
-[ext_resource type="PackedScene" path="res://scenes/fighters/personagens/MDK/MDK.tscn" id="3_mdk"]
 [ext_resource type="PackedScene" path="res://scenes/hud/HUD.tscn" id="4_hud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
@@ -55,15 +53,6 @@ collision_layer = 1
 shape = SubResource("RectangleShape2D_parede_dir")
 
 [node name="Fighters" type="Node2D" parent="."]
-
-[node name="Fighter1" parent="Fighters" instance=ExtResource("2_vip")]
-position = Vector2(400, 460)
-player_index = 1
-
-[node name="Fighter2" parent="Fighters" instance=ExtResource("3_mdk")]
-position = Vector2(880, 460)
-player_index = 2
-olhando_direita = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 360)
