@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3mdkscene01"]
+[gd_scene format=3 uid="uid://c3mdkscene01"]
 
 [ext_resource type="PackedScene" path="res://scenes/fighters/FighterBase.tscn" id="1_base"]
 [ext_resource type="Script" path="res://scripts/fighters/personagens/MDKFighter.gd" id="2_script"]
@@ -6,5 +6,5 @@
 [node name="MDK" instance=ExtResource("1_base")]
 script = ExtResource("2_script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" parent="."]
 modulate = Color(0.902, 0.271, 0.271, 1)
