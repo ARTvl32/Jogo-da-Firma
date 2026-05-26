@@ -103,6 +103,7 @@ func _processar_input() -> void:
 	if _input_just_pressed("up") and is_on_floor():
 		velocity.y = forca_pulo
 		combate.mudar_estado(ComponenteCombate.Estado.JUMP)
+		GeradorSom.tocar("pulo", -5.0)
 		return
 
 	if not is_on_floor():
@@ -147,6 +148,7 @@ func _atualizar_estado_movimento() -> void:
 	else:
 		if e == ComponenteCombate.Estado.FALL or e == ComponenteCombate.Estado.JUMP:
 			combate.mudar_estado(ComponenteCombate.Estado.IDLE)
+			GeradorSom.tocar("aterrissagem", -6.0)
 
 func _atualizar_facing() -> void:
 	if not combate.pode_se_mover():
@@ -212,6 +214,7 @@ func _on_hit_conectado(hurtbox_inimiga: Hurtbox) -> void:
 		knockback.x = -knockback.x
 	alvo.receber_hit(self, dano, hitstun, blockstun, knockback)
 	combate.acertou.emit(alvo)
+	GeradorSom.tocar("hit_pesado" if dano >= 100 else "hit_leve")
 
 func receber_hit(atacante: FighterBase, dano: int, hitstun: int, blockstun: int, knockback: Vector2) -> void:
 	if combate.estado_atual == ComponenteCombate.Estado.DEATH:
@@ -220,6 +223,7 @@ func receber_hit(atacante: FighterBase, dano: int, hitstun: int, blockstun: int,
 		blockstun_frames = blockstun
 		velocity.x = knockback.x * 0.3
 		_aplicar_hitstop(6)
+		GeradorSom.tocar("block")
 		return
 	vida.aplicar_dano(dano)
 	hitstun_frames = hitstun
@@ -237,6 +241,7 @@ func _on_estado_alterado(novo: int) -> void:
 func _on_morreu() -> void:
 	combate.mudar_estado(ComponenteCombate.Estado.DEATH)
 	hitbox.desativar()
+	GeradorSom.tocar("morte", 3.0)
 
 func definir_oponente(outro: FighterBase) -> void:
 	conhece_oponente = outro

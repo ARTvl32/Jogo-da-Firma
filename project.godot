@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://scripts/sistemas/GameManager.gd"
+GeradorSom="*res://scripts/sistemas/GeradorSom.gd"
 
 [display]
 
