@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c1fightbase01"]
+[gd_scene format=3 uid="uid://c1fightbase01"]
 
 [ext_resource type="Script" path="res://scripts/fighters/FighterBase.gd" id="1_fighter"]
 [ext_resource type="Script" path="res://scripts/componentes/ComponenteVida.gd" id="2_vida"]

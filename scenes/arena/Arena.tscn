@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/arena/Arena.gd" id="1_arena"]
 [ext_resource type="Script" path="res://scripts/efeitos/ScreenShake.gd" id="5_shake"]
 [ext_resource type="PackedScene" path="res://scenes/hud/HUD.tscn" id="4_hud"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/NightForest/Image.png" id="6_bg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
 size = Vector2(2000, 40)
@@ -16,12 +17,13 @@ size = Vector2(40, 800)
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_arena")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
+texture = ExtResource("6_bg")
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 1280.0
 offset_bottom = 720.0
-color = Color(0.12, 0.10, 0.15, 1)
+stretch_mode = 1
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(640, 580)

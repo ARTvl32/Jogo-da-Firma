@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cmenuprincipal1"]
+[gd_scene format=3 uid="uid://dqn1hrjywc34o"]
 
 [ext_resource type="Script" path="res://scripts/menus/MenuPrincipal.gd" id="1_menu"]
 
