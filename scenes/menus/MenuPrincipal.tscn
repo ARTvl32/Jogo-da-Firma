@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://cmenuprincipal1"]
+
+[ext_resource type="Script" path="res://scripts/menus/MenuPrincipal.gd" id="1_menu"]
+
+[node name="MenuPrincipal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.05, 0.10, 1)
+
+[node name="TituloLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 80.0
+offset_right = 300.0
+offset_bottom = 160.0
+text = "LOS CANDIDOS"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 56
+
+[node name="SubtituloLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 160.0
+offset_right = 300.0
+offset_bottom = 200.0
+text = "— jogo de luta —"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+modulate = Color(0.7, 0.7, 0.7, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.0
+offset_top = 280.0
+offset_right = 140.0
+offset_bottom = 460.0
+theme_override_constants/separation = 20
+
+[node name="BotaoVersus" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(280, 60)
+text = "VERSUS"
+theme_override_font_sizes/font_size = 24
+
+[node name="BotaoOpcoes" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(280, 60)
+text = "OPÇÕES"
+theme_override_font_sizes/font_size = 24
+
+[node name="BotaoSair" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(280, 60)
+text = "SAIR"
+theme_override_font_sizes/font_size = 24

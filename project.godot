@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Los Candidos"
 config/description="Jogo de luta 2D arcade em pixel art"
-run/main_scene="res://scenes/main/Main.tscn"
+run/main_scene="res://scenes/menus/MenuPrincipal.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
