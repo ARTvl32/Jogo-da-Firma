@@ -1,12 +1,65 @@
 [gd_scene format=3 uid="uid://b1r4jkrm7dw8a"]
 
 [ext_resource type="Script" path="res://scripts/menus/TelaResultado.gd" id="1_resultado"]
+[ext_resource type="FontFile" uid="uid://b7fde5bu10h44" path="res://assets/fonts/cityburn.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="BtnNormal"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.1, 0.1, 0.22, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="BtnPressed"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.06, 0.06, 0.14, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="BtnHover"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.22, 0.22, 0.44, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="BtnFocus"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.1, 0.1, 0.22, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.68, 0.08, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="TelaResultado" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_resultado")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -14,54 +67,76 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.05, 0.05, 0.10, 1)
+color = Color(0.03, 0.02, 0.08, 1)
 
-[node name="LabelVencedor" type="Label" parent="."]
+[node name="Centro" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -400.0
-offset_top = 140.0
-offset_right = 400.0
-offset_bottom = 240.0
-text = "VENCEDOR"
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 64
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="LabelPlacar" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_top = 250.0
-offset_right = 200.0
-offset_bottom = 310.0
-text = "0  x  0"
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 36
-modulate = Color(0.8, 0.8, 0.8, 1)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -150.0
-offset_top = 360.0
-offset_right = 150.0
-offset_bottom = 520.0
+[node name="VBox" type="VBoxContainer" parent="Centro"]
+layout_mode = 2
+custom_minimum_size = Vector2(520, 0)
 theme_override_constants/separation = 20
 
-[node name="BotaoRevanche" type="Button" parent="VBoxContainer"]
+[node name="LabelTitulo" type="Label" parent="Centro/VBox"]
+modulate = Color(0.65, 0.65, 0.65, 1)
 layout_mode = 2
-custom_minimum_size = Vector2(300, 60)
-text = "REVANCHE"
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+text = "VITÓRIA"
+horizontal_alignment = 1
 
-[node name="BotaoMenu" type="Button" parent="VBoxContainer"]
+[node name="LabelVencedor" type="Label" parent="Centro/VBox"]
 layout_mode = 2
-custom_minimum_size = Vector2(300, 60)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 88
+text = "MDK!"
+horizontal_alignment = 1
+
+[node name="LabelPlacar" type="Label" parent="Centro/VBox"]
+modulate = Color(0.72, 0.72, 0.72, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0  ×  0"
+horizontal_alignment = 1
+
+[node name="HSep" type="HSeparator" parent="Centro/VBox"]
+layout_mode = 2
+
+[node name="BotoesBox" type="VBoxContainer" parent="Centro/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="BotaoRevanche" type="Button" parent="Centro/VBox/BotoesBox"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("BtnNormal")
+theme_override_styles/pressed = SubResource("BtnPressed")
+theme_override_styles/hover = SubResource("BtnHover")
+theme_override_styles/focus = SubResource("BtnFocus")
+text = "REVANCHE"
+
+[node name="BotaoSelecao" type="Button" parent="Centro/VBox/BotoesBox"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("BtnNormal")
+theme_override_styles/pressed = SubResource("BtnPressed")
+theme_override_styles/hover = SubResource("BtnHover")
+theme_override_styles/focus = SubResource("BtnFocus")
+text = "SELEÇÃO DE PERSONAGEM"
+
+[node name="BotaoMenu" type="Button" parent="Centro/VBox/BotoesBox"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("BtnNormal")
+theme_override_styles/pressed = SubResource("BtnPressed")
+theme_override_styles/hover = SubResource("BtnHover")
+theme_override_styles/focus = SubResource("BtnFocus")
 text = "MENU PRINCIPAL"
-theme_override_font_sizes/font_size = 24

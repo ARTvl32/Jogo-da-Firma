@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://c5hudscene001" path="res://scenes/hud/HUD.tscn" id="4_hud"]
 [ext_resource type="Script" uid="uid://cjxopwjlmxssx" path="res://scripts/efeitos/ScreenShake.gd" id="5_shake"]
 [ext_resource type="Texture2D" uid="uid://ucyt1nwlje3v" path="res://assets/sprites/arena/NightForest/Image.png" id="6_bg"]
+[ext_resource type="Texture2D" uid="uid://bdabx7b7dsr2q" path="res://assets/sprites/arena/floor_tile.png" id="7_floor"]
+[ext_resource type="FontFile" uid="uid://b7fde5bu10h44" path="res://assets/fonts/cityburn.ttf" id="8_font"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
 size = Vector2(2000, 40)
@@ -27,19 +29,20 @@ texture = ExtResource("6_bg")
 stretch_mode = 1
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=1069254720]
-position = Vector2(640, 580)
+position = Vector2(611, 559)
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1188174853]
-position = Vector2(-1, 100)
+position = Vector2(26, 94)
 shape = SubResource("RectangleShape2D_chao")
 
-[node name="ColorRect" type="ColorRect" parent="Floor" unique_id=1946774319]
-offset_left = -973.0
-offset_top = 78.0
-offset_right = 1027.0
-offset_bottom = 118.0
-color = Color(0.03529412, 0.21568628, 0.25490198, 0.8039216)
+[node name="FloorSprite" type="TextureRect" parent="Floor" unique_id=1946774319]
+offset_left = -975.0
+offset_top = 74.0
+offset_right = 1025.0
+offset_bottom = 350.0
+texture = ExtResource("7_floor")
+stretch_mode = 1
 
 [node name="ParedaEsquerda" type="StaticBody2D" parent="." unique_id=1096953830]
 position = Vector2(-20, 300)
@@ -57,7 +60,7 @@ shape = SubResource("RectangleShape2D_parede_dir")
 position = Vector2(0, 5)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=62708458]
-position = Vector2(640, 360)
+position = Vector2(642, 360)
 limit_left = 0
 limit_top = -200
 limit_right = 1280
@@ -71,5 +74,60 @@ script = ExtResource("5_shake")
 [node name="TimerRound" type="Timer" parent="." unique_id=1796878641]
 
 [node name="HUD" parent="." unique_id=532969244 instance=ExtResource("4_hud")]
+metadata/_edit_use_anchors_ = true
+
+[node name="PainelRoundVitoria" type="Control" parent="." unique_id=222000001]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 640.0
+offset_top = 358.0
+offset_right = 640.0
+offset_bottom = 358.0
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Overlay" type="ColorRect" parent="PainelRoundVitoria" unique_id=222000002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+metadata/_edit_use_anchors_ = true
+
+[node name="Centro" type="CenterContainer" parent="PainelRoundVitoria" unique_id=222000003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="PainelRoundVitoria/Centro" unique_id=222000004]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LabelRound" type="Label" parent="PainelRoundVitoria/Centro/VBox" unique_id=222000005]
+modulate = Color(0.75, 0.75, 0.75, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "ROUND 1"
+horizontal_alignment = 1
+
+[node name="LabelVencedor" type="Label" parent="PainelRoundVitoria/Centro/VBox" unique_id=222000006]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_font")
+theme_override_font_sizes/font_size = 72
+text = "VENCEU!"
+horizontal_alignment = 1
+
+[node name="LabelContinua" type="Label" parent="PainelRoundVitoria/Centro/VBox" unique_id=222000007]
+modulate = Color(0.65, 0.65, 0.65, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "próximo round em 5..."
+horizontal_alignment = 1

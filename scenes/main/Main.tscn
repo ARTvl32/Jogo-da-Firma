@@ -45,8 +45,8 @@ color = Color(0.3, 0.3, 0.3, 1)
 [node name="Fighters" type="Node2D" parent="." unique_id=1028984972]
 
 [node name="Fighter1" parent="Fighters" unique_id=697171290 instance=ExtResource("1_vip")]
-position = Vector2(480, 480)
+position = Vector2(285, 405)
 
 [node name="Fighter2" parent="Fighters" unique_id=40168081 instance=ExtResource("2_mdk")]
-position = Vector2(800, 480)
+position = Vector2(780, 513)
 player_index = 2

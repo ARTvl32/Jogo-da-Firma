@@ -17,6 +17,10 @@ const CENA_MDK: PackedScene = preload("res://scenes/fighters/personagens/MDK/MDK
 @onready var hud: Control = $HUD
 @onready var timer_round: Timer = $TimerRound
 @onready var fighters_node: Node2D = $Fighters
+@onready var painel_round_vitoria: Control = $PainelRoundVitoria
+@onready var label_rvc_round: Label = $PainelRoundVitoria/Centro/VBox/LabelRound
+@onready var label_rvc_nome: Label = $PainelRoundVitoria/Centro/VBox/LabelVencedor
+@onready var label_rvc_continua: Label = $PainelRoundVitoria/Centro/VBox/LabelContinua
 
 var fighter1: FighterBase
 var fighter2: FighterBase
@@ -92,21 +96,48 @@ func _ao_fighter_morrer(quem_venceu: int) -> void:
 func _encerrar_round(vencedor: int) -> void:
 	round_em_andamento = false
 	timer_round.stop()
-	print("[Arena] Round encerrado. Vencedor: P%d" % vencedor)
 	if vencedor == 1:
 		GameManager.rounds_p1 += 1
 	elif vencedor == 2:
 		GameManager.rounds_p2 += 1
 	round_terminou.emit(vencedor)
-	await get_tree().create_timer(2.0).timeout
-	if GameManager.rounds_p1 >= GameManager.rounds_para_vencer:
-		GameManager.vencedor = 1
-		GameManager.ir_para_resultado()
-	elif GameManager.rounds_p2 >= GameManager.rounds_para_vencer:
-		GameManager.vencedor = 2
+
+	var partida_encerrada: bool = (
+		GameManager.rounds_p1 >= GameManager.rounds_para_vencer or
+		GameManager.rounds_p2 >= GameManager.rounds_para_vencer
+	)
+
+	if partida_encerrada:
+		await get_tree().create_timer(1.5).timeout
+		if GameManager.rounds_p1 >= GameManager.rounds_para_vencer:
+			GameManager.vencedor = 1
+		else:
+			GameManager.vencedor = 2
 		GameManager.ir_para_resultado()
 	else:
+		_configurar_overlay_round(vencedor)
+		painel_round_vitoria.visible = true
+		for i in range(5, 0, -1):
+			label_rvc_continua.text = "próximo round em %d..." % i
+			await get_tree().create_timer(1.0).timeout
+		painel_round_vitoria.visible = false
 		get_tree().reload_current_scene()
+
+func _configurar_overlay_round(vencedor: int) -> void:
+	var round_num: int = GameManager.rounds_p1 + GameManager.rounds_p2
+	label_rvc_round.text = "ROUND %d" % round_num
+	label_rvc_continua.text = "próximo round em 5..."
+	if vencedor == 1:
+		var nome: String = GameManager.personagem_p1 if GameManager.personagem_p1 != "" else "P1"
+		label_rvc_nome.text = nome.to_upper() + " VENCEU!"
+		label_rvc_nome.modulate = Color(0.08, 0.82, 0.7, 1)
+	elif vencedor == 2:
+		var nome: String = GameManager.personagem_p2 if GameManager.personagem_p2 != "" else "P2"
+		label_rvc_nome.text = nome.to_upper() + " VENCEU!"
+		label_rvc_nome.modulate = Color(1, 0.74, 0, 1)
+	else:
+		label_rvc_nome.text = "EMPATE!"
+		label_rvc_nome.modulate = Color(0.8, 0.8, 0.8, 1)
 
 func _atualizar_camera() -> void:
 	if fighter1 == null or fighter2 == null:

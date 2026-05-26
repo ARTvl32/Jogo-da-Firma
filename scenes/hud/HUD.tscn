@@ -1,59 +1,306 @@
 [gd_scene format=3 uid="uid://c5hudscene001"]
 
-[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://cufchjc4d0l3t" path="res://scripts/ui/HUD.gd" id="1_hud"]
+[ext_resource type="FontFile" uid="uid://b7fde5bu10h44" path="res://assets/fonts/cityburn.ttf" id="2_font"]
 
-[node name="HUD" type="Control"]
+[sub_resource type="StyleBoxFlat" id="BarBg"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.06, 0.06, 0.06, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="P1Fill"]
+bg_color = Color(0.08, 0.82, 0.7, 1)
+
+[sub_resource type="StyleBoxFlat" id="P2Fill"]
+bg_color = Color(1, 0.74, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="TimerBg"]
+bg_color = Color(0.04, 0.04, 0.1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.88, 0.88, 0.88, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="PauseBg"]
+bg_color = Color(0.05, 0.04, 0.14, 0.97)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.68, 0.08, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="BtnNormal"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.1, 0.1, 0.22, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="BtnPressed"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.06, 0.06, 0.14, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="BtnHover"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.22, 0.22, 0.44, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="BtnFocus"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.1, 0.1, 0.22, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.68, 0.08, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HUD" type="Control" unique_id=1996884646]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_hud")
 
-[node name="HealthBar1" type="ProgressBar" parent="."]
+[node name="FundoTopo" type="ColorRect" parent="." unique_id=1586989174]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 82.0
+color = Color(0, 0, 0, 1)
+
+[node name="NomeP1" type="Label" parent="." unique_id=557242396]
+modulate = Color(0.08, 0.82, 0.7, 1)
 layout_mode = 0
 offset_left = 40.0
-offset_top = 20.0
-offset_right = 540.0
-offset_bottom = 50.0
-show_percentage = false
-value = 100.0
+offset_top = 3.0
+offset_right = 520.0
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "FIGHTER 1"
 
-[node name="HealthBar2" type="ProgressBar" parent="."]
+[node name="HealthBar1" type="ProgressBar" parent="." unique_id=774574968]
 layout_mode = 0
-offset_left = 740.0
-offset_top = 20.0
+offset_left = 40.0
+offset_top = 35.0
+offset_right = 565.0
+offset_bottom = 65.0
+theme_override_styles/background = SubResource("BarBg")
+theme_override_styles/fill = SubResource("P1Fill")
+value = 100.0
+show_percentage = false
+
+[node name="NomeP2" type="Label" parent="." unique_id=128431476]
+modulate = Color(1, 0.74, 0, 1)
+layout_mode = 0
+offset_left = 760.0
+offset_top = 3.0
 offset_right = 1240.0
-offset_bottom = 50.0
-show_percentage = false
-fill_mode = 1
-value = 100.0
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "FIGHTER 2"
+horizontal_alignment = 2
 
-[node name="TimerLabel" type="Label" parent="."]
+[node name="HealthBar2" type="ProgressBar" parent="." unique_id=335763783]
 layout_mode = 0
-offset_left = 580.0
-offset_top = 10.0
-offset_right = 700.0
-offset_bottom = 60.0
+offset_left = 716.0
+offset_top = 35.0
+offset_right = 1240.0
+offset_bottom = 65.0
+theme_override_styles/background = SubResource("BarBg")
+theme_override_styles/fill = SubResource("P2Fill")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="PainelTimer" type="Panel" parent="." unique_id=97011370]
+layout_mode = 0
+offset_left = 586.0
+offset_top = 3.0
+offset_right = 694.0
+offset_bottom = 76.0
+theme_override_styles/panel = SubResource("TimerBg")
+
+[node name="TimerLabel" type="Label" parent="PainelTimer" unique_id=1177519627]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.72
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 38
 text = "99"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ComboLabel1" type="Label" parent="."]
+[node name="RoundLabel" type="Label" parent="PainelTimer" unique_id=1122925767]
+modulate = Color(0.75, 0.75, 0.75, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.72
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "Round 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ComboLabel1" type="Label" parent="." unique_id=940726813]
+modulate = Color(0.08, 0.82, 0.7, 1)
 layout_mode = 0
 offset_left = 40.0
-offset_top = 58.0
-offset_right = 340.0
-offset_bottom = 85.0
-text = ""
-modulate = Color(0.945, 0.769, 0.059, 1)
+offset_top = 68.0
+offset_right = 420.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 18
 
-[node name="ComboLabel2" type="Label" parent="."]
+[node name="ComboLabel2" type="Label" parent="." unique_id=983930154]
+modulate = Color(1, 0.74, 0, 1)
 layout_mode = 0
-offset_left = 940.0
-offset_top = 58.0
+offset_left = 860.0
+offset_top = 68.0
 offset_right = 1240.0
-offset_bottom = 85.0
-text = ""
-modulate = Color(0.945, 0.769, 0.059, 1)
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 2
+
+[node name="PainelPausa" type="Control" parent="." unique_id=919987243]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Overlay" type="ColorRect" parent="PainelPausa" unique_id=28868902]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.72)
+
+[node name="Centro" type="CenterContainer" parent="PainelPausa" unique_id=2072482391]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Painel" type="PanelContainer" parent="PainelPausa/Centro" unique_id=747877039]
+custom_minimum_size = Vector2(430, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("PauseBg")
+
+[node name="Margin" type="MarginContainer" parent="PainelPausa/Centro/Painel" unique_id=1724223417]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="PainelPausa/Centro/Painel/Margin" unique_id=145289418]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LabelTitulo" type="Label" parent="PainelPausa/Centro/Painel/Margin/VBox" unique_id=1216468257]
+modulate = Color(0.96, 0.84, 0.22, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "PAUSA"
+horizontal_alignment = 1
+
+[node name="HSep1" type="HSeparator" parent="PainelPausa/Centro/Painel/Margin/VBox" unique_id=707670372]
+layout_mode = 2
+
+[node name="BotaoContinuar" type="Button" parent="PainelPausa/Centro/Painel/Margin/VBox" unique_id=1154862397]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("BtnNormal")
+theme_override_styles/pressed = SubResource("BtnPressed")
+theme_override_styles/hover = SubResource("BtnHover")
+theme_override_styles/focus = SubResource("BtnFocus")
+text = "CONTINUAR"
+
+[node name="LabelVol" type="Label" parent="PainelPausa/Centro/Painel/Margin/VBox" unique_id=385718346]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "VOLUME"
+
+[node name="HBoxVol" type="HBoxContainer" parent="PainelPausa/Centro/Painel/Margin/VBox" unique_id=75318347]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SliderVol" type="HSlider" parent="PainelPausa/Centro/Painel/Margin/VBox/HBoxVol" unique_id=791626631]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+
+[node name="LabelPct" type="Label" parent="PainelPausa/Centro/Painel/Margin/VBox/HBoxVol" unique_id=938621529]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "100%"
+
+[node name="HSep2" type="HSeparator" parent="PainelPausa/Centro/Painel/Margin/VBox" unique_id=213675408]
+layout_mode = 2
+
+[node name="BotaoMenu" type="Button" parent="PainelPausa/Centro/Painel/Margin/VBox" unique_id=1727200263]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("BtnNormal")
+theme_override_styles/pressed = SubResource("BtnPressed")
+theme_override_styles/hover = SubResource("BtnHover")
+theme_override_styles/focus = SubResource("BtnFocus")
+text = "MENU PRINCIPAL"

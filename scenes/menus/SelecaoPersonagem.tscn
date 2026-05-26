@@ -1,22 +1,26 @@
 [gd_scene format=3 uid="uid://cselecaopers1"]
 
-[ext_resource type="Script" path="res://scripts/menus/SelecaoPersonagem.gd" id="1_selecao"]
+[ext_resource type="Script" uid="uid://bgyhcbui5p3df" path="res://scripts/menus/SelecaoPersonagem.gd" id="1_selecao"]
 
-[node name="SelecaoPersonagem" type="Control"]
+[node name="SelecaoPersonagem" type="Control" unique_id=2014004781]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_selecao")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1556993740]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.05, 0.05, 0.10, 1)
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.1, 1)
 
-[node name="TituloLabel" type="Label" parent="."]
+[node name="TituloLabel" type="Label" parent="." unique_id=1378148367]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -25,182 +29,190 @@ offset_left = -400.0
 offset_top = 30.0
 offset_right = 400.0
 offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 36
 text = "SELECIONE SEU LUTADOR"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 36
 
-[node name="PainelP1" type="Panel" parent="."]
+[node name="PainelP1" type="Panel" parent="." unique_id=1311472059]
 layout_mode = 1
 offset_left = 60.0
 offset_top = 120.0
 offset_right = 520.0
 offset_bottom = 560.0
 
-[node name="LabelJogador" type="Label" parent="PainelP1"]
+[node name="LabelJogador" type="Label" parent="PainelP1" unique_id=1908526469]
+modulate = Color(0.4, 0.6, 1, 1)
 layout_mode = 1
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 440.0
 offset_bottom = 50.0
+theme_override_font_sizes/font_size = 18
 text = "JOGADOR 1 (A / D para escolher)"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
-modulate = Color(0.4, 0.6, 1, 1)
 
-[node name="LabelVIP" type="Label" parent="PainelP1"]
+[node name="LabelVIP" type="Label" parent="PainelP1" unique_id=92549052]
+modulate = Color(0.247, 0.533, 1, 1)
 layout_mode = 1
 offset_left = 10.0
 offset_top = 100.0
 offset_right = 210.0
 offset_bottom = 200.0
+theme_override_font_sizes/font_size = 48
 text = "VIP"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 48
-modulate = Color(0.247, 0.533, 1, 1)
 
-[node name="LabelVIPDesc" type="Label" parent="PainelP1"]
+[node name="LabelVIPDesc" type="Label" parent="PainelP1" unique_id=492704208]
 layout_mode = 1
 offset_left = 10.0
 offset_top = 200.0
 offset_right = 210.0
 offset_bottom = 260.0
-text = "Shoto / All-Rounder\nRápido, ágil"
-horizontal_alignment = 1
 theme_override_font_sizes/font_size = 14
+text = "Shoto / All-Rounder
+Rápido, ágil"
+horizontal_alignment = 1
 
-[node name="LabelMDK" type="Label" parent="PainelP1"]
+[node name="LabelMDK" type="Label" parent="PainelP1" unique_id=1061526678]
+modulate = Color(0.902, 0.271, 0.271, 1)
 layout_mode = 1
 offset_left = 230.0
 offset_top = 100.0
 offset_right = 430.0
 offset_bottom = 200.0
+theme_override_font_sizes/font_size = 48
 text = "MDK"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 48
-modulate = Color(0.902, 0.271, 0.271, 1)
 
-[node name="LabelMDKDesc" type="Label" parent="PainelP1"]
+[node name="LabelMDKDesc" type="Label" parent="PainelP1" unique_id=357536876]
 layout_mode = 1
 offset_left = 230.0
 offset_top = 200.0
 offset_right = 430.0
 offset_bottom = 260.0
-text = "Grappler / Streetwear\nLento, fortão"
-horizontal_alignment = 1
 theme_override_font_sizes/font_size = 14
+text = "Grappler / Streetwear
+Lento, fortão"
+horizontal_alignment = 1
 
-[node name="LabelEscolha" type="Label" parent="PainelP1"]
+[node name="LabelEscolha" type="Label" parent="PainelP1" unique_id=1616630730]
 layout_mode = 1
 offset_left = 10.0
 offset_top = 360.0
 offset_right = 440.0
 offset_bottom = 420.0
+theme_override_font_sizes/font_size = 28
 text = "P1: —"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 28
 
-[node name="LabelConfirmar" type="Label" parent="PainelP1"]
+[node name="LabelConfirmar" type="Label" parent="PainelP1" unique_id=1655173460]
+modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 1
-offset_left = 10.0
-offset_top = 380.0
-offset_right = 440.0
-offset_bottom = 420.0
+offset_left = 9.0
+offset_top = 393.0
+offset_right = 439.0
+offset_bottom = 433.0
+theme_override_font_sizes/font_size = 14
 text = "Confirmar: U (lp)"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 14
-modulate = Color(0.6, 0.6, 0.6, 1)
 
-[node name="PainelP2" type="Panel" parent="."]
+[node name="PainelP2" type="Panel" parent="." unique_id=598981273]
 layout_mode = 1
 offset_left = 760.0
 offset_top = 120.0
 offset_right = 1220.0
 offset_bottom = 560.0
 
-[node name="LabelJogador" type="Label" parent="PainelP2"]
+[node name="LabelJogador" type="Label" parent="PainelP2" unique_id=1886535729]
+modulate = Color(1, 0.4, 0.4, 1)
 layout_mode = 1
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 440.0
 offset_bottom = 50.0
+theme_override_font_sizes/font_size = 18
 text = "JOGADOR 2 (← / → para escolher)"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
-modulate = Color(1, 0.4, 0.4, 1)
 
-[node name="LabelVIP" type="Label" parent="PainelP2"]
+[node name="LabelVIP" type="Label" parent="PainelP2" unique_id=1475139166]
+modulate = Color(0.247, 0.533, 1, 1)
 layout_mode = 1
 offset_left = 10.0
 offset_top = 100.0
 offset_right = 210.0
 offset_bottom = 200.0
+theme_override_font_sizes/font_size = 48
 text = "VIP"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 48
-modulate = Color(0.247, 0.533, 1, 1)
 
-[node name="LabelVIPDesc" type="Label" parent="PainelP2"]
+[node name="LabelVIPDesc" type="Label" parent="PainelP2" unique_id=1269495053]
 layout_mode = 1
 offset_left = 10.0
 offset_top = 200.0
 offset_right = 210.0
 offset_bottom = 260.0
-text = "Shoto / All-Rounder\nRápido, ágil"
-horizontal_alignment = 1
 theme_override_font_sizes/font_size = 14
+text = "Shoto / All-Rounder
+Rápido, ágil"
+horizontal_alignment = 1
 
-[node name="LabelMDK" type="Label" parent="PainelP2"]
+[node name="LabelMDK" type="Label" parent="PainelP2" unique_id=411125904]
+modulate = Color(0.902, 0.271, 0.271, 1)
 layout_mode = 1
 offset_left = 230.0
 offset_top = 100.0
 offset_right = 430.0
 offset_bottom = 200.0
+theme_override_font_sizes/font_size = 48
 text = "MDK"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 48
-modulate = Color(0.902, 0.271, 0.271, 1)
 
-[node name="LabelMDKDesc" type="Label" parent="PainelP2"]
+[node name="LabelMDKDesc" type="Label" parent="PainelP2" unique_id=1251866691]
 layout_mode = 1
 offset_left = 230.0
 offset_top = 200.0
 offset_right = 430.0
 offset_bottom = 260.0
-text = "Grappler / Streetwear\nLento, fortão"
-horizontal_alignment = 1
 theme_override_font_sizes/font_size = 14
+text = "Grappler / Streetwear
+Lento, fortão"
+horizontal_alignment = 1
 
-[node name="LabelEscolha" type="Label" parent="PainelP2"]
+[node name="LabelEscolha" type="Label" parent="PainelP2" unique_id=860048117]
 layout_mode = 1
 offset_left = 10.0
 offset_top = 360.0
 offset_right = 440.0
 offset_bottom = 420.0
+theme_override_font_sizes/font_size = 28
 text = "P2: —"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 28
 
-[node name="LabelConfirmar" type="Label" parent="PainelP2"]
+[node name="LabelConfirmar" type="Label" parent="PainelP2" unique_id=507319635]
+modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 1
-offset_left = 10.0
-offset_top = 380.0
-offset_right = 440.0
-offset_bottom = 420.0
+offset_left = 13.0
+offset_top = 392.0
+offset_right = 443.0
+offset_bottom = 432.0
+theme_override_font_sizes/font_size = 14
 text = "Confirmar: L (lp)"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 14
-modulate = Color(0.6, 0.6, 0.6, 1)
 
-[node name="LabelStatus" type="Label" parent="."]
+[node name="LabelStatus" type="Label" parent="." unique_id=193291445]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -400.0
-offset_top = -80.0
-offset_right = 400.0
-offset_bottom = -20.0
+offset_left = -398.0
+offset_top = -81.0
+offset_right = 402.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
 text = "Escolha seu personagem — Esc para voltar ao menu"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 20
