@@ -62,9 +62,11 @@ Round Start → Combate (footsies, whiff punish, mix-up) → KO ou Time Up → P
 | Ação | Jogador 1 | Jogador 2 |
 |---|---|---|
 | Mover | `WASD` | `Setas` |
-| Ataque leve | `U` | `Numpad 1` |
-| Ataque pesado | `I` | `Numpad 2` |
-| Bloquear | `O` | `Numpad 3` |
+| Light Punch | `U` | `L` |
+| Light Kick | `J` | `,` |
+| Heavy Punch | `I` | `;` |
+| Heavy Kick | `K` | `.` |
+| Bloquear | `O` | `/` |
 
 Suporte a gamepad (Xbox/PlayStation). Controles remapeáveis.
 
