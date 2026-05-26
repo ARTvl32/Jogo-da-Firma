@@ -4,13 +4,13 @@
 
 ---
 
-## Downloads recomendados (CC0 — sem restrições)
+## Downloads (CC0 — sem restrições)
 
 | Asset | Uso | Link | Licença |
 |---|---|---|---|
-| Martial Hero | Lutador (VIP e MDK) | https://luizmelo.itch.io/martial-hero | CC0 |
+| Martial Hero 2 | VIP (Player 1) | https://luizmelo.itch.io/martial-hero-2 | CC0 |
+| Martial Hero 3 | MDK (Player 2) | https://luizmelo.itch.io/martial-hero-3 | CC0 |
 | Streets of Fight | Cenário + background parallax | https://opengameart.org/content/streets-of-fight | CC0 |
-| Pixel Art Street and Avenue | Alternativa de cenário | https://opengameart.org/content/pixel-art-street-and-avenue | CC0 |
 
 ---
 
@@ -51,18 +51,30 @@ assets/sprites/
 
 ## Passo a passo para integrar no Godot
 
-### Lutadores (VIP e MDK)
+### Lutadores
 
-1. Baixe o **Martial Hero** em https://luizmelo.itch.io/martial-hero
-2. Extraia e copie os PNGs para `assets/sprites/fighters/vip/` e `assets/sprites/fighters/mdk/`
-3. No Godot, abra `scenes/fighters/personagens/VIP/VIP.tscn`
-4. Clique em `AnimatedSprite2D` > Inspector > `SpriteFrames` > Editar
-5. Para cada animação da tabela acima:
-   - Crie a animação com o nome exato
-   - Arraste os frames do spritesheet para a linha de frames
-   - Configure FPS e loop conforme a tabela
-6. Ajuste o `CollisionShape2D` do corpo (60×120) e da `Hurtbox` para casar com o sprite real
-7. Repita para `MDK.tscn` (use `Modulate` para diferenciar: VIP=azul, MDK=vermelho se usar o mesmo sheet)
+**VIP (Player 1) — Martial Hero 2:**
+1. Baixe em https://luizmelo.itch.io/martial-hero-2
+2. Extraia e copie os PNGs para `assets/sprites/fighters/vip/`
+3. Mapeamento de animações:
+   - Idle → `idle` | Run → `walk` e `run` | Jump → `jump` | Fall → `fall`
+   - Attack1 → `attack_lp` e `attack_lk` | Attack2 → `attack_hp` e `attack_hk`
+   - Take Hit → `hurt` | Death → `death`
+
+**MDK (Player 2) — Martial Hero 3:**
+1. Baixe em https://luizmelo.itch.io/martial-hero-3
+2. Extraia e copie os PNGs para `assets/sprites/fighters/mdk/`
+3. Mapeamento de animações:
+   - Idle → `idle` | Run → `walk` e `run` | Going Up → `jump` | Going Down → `fall`
+   - Attack1 → `attack_lp` | Attack2 → `attack_lk` | Attack3 → `attack_hp` e `attack_hk`
+   - Take Hit → `hurt` | Death → `death`
+
+**Para ambos no Godot:**
+1. Abra a cena do personagem > `AnimatedSprite2D` > Inspector > `SpriteFrames` > Editar
+2. Crie cada animação com o nome exato da coluna "Nome no jogo"
+3. Arraste os frames do spritesheet e configure FPS/loop conforme a tabela acima
+4. Ajuste `CollisionShape2D` do corpo e `Hurtbox` para casar com o sprite real
+5. Mantenha o `Modulate`: VIP=azul `#3F88FF`, MDK=vermelho `#E64545`
 
 ### Cenário (Arena)
 
