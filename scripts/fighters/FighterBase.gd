@@ -37,6 +37,7 @@ func _ready() -> void:
 	hitbox.hit_conectado.connect(_on_hit_conectado)
 	combate.estado_alterado.connect(_on_estado_alterado)
 	vida.morreu.connect(_on_morreu)
+	vida.resetar()
 	animacao.tocar_para_estado(combate.estado_atual)
 	hitbox.desativar()
 	_atualizar_posicao_hitbox()
