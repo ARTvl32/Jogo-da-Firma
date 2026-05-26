@@ -149,13 +149,16 @@ func _atualizar_estado_movimento() -> void:
 			combate.mudar_estado(ComponenteCombate.Estado.IDLE)
 
 func _atualizar_facing() -> void:
-	if conhece_oponente == null:
-		return
-	if not is_on_floor():
-		return
 	if not combate.pode_se_mover():
 		return
-	var deveria_olhar_direita: bool = conhece_oponente.global_position.x >= global_position.x
+	var deveria_olhar_direita: bool
+	var dir: float = _direcao_horizontal()
+	if dir != 0.0:
+		deveria_olhar_direita = dir > 0.0
+	elif conhece_oponente != null:
+		deveria_olhar_direita = conhece_oponente.global_position.x >= global_position.x
+	else:
+		return
 	if deveria_olhar_direita != olhando_direita:
 		olhando_direita = deveria_olhar_direita
 		sprite.flip_h = not olhando_direita
