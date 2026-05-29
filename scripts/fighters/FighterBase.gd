@@ -224,6 +224,10 @@ func receber_hit(atacante: FighterBase, dano: int, hitstun: int, blockstun: int,
 		velocity.x = knockback.x * 0.3
 		_aplicar_hitstop(6)
 		GeradorSom.tocar("block")
+		if dano >= 100:
+			var chip: int = max(1, int(dano * 0.08))
+			vida.aplicar_dano(chip, false)
+		combate.levou_hit.emit(atacante, 0, knockback)
 		return
 	vida.aplicar_dano(dano)
 	hitstun_frames = hitstun

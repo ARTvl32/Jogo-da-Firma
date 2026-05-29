@@ -15,10 +15,10 @@ func _ready() -> void:
 	vida_atual = vida_maxima
 	vida_alterada.emit(vida_atual, vida_maxima)
 
-func aplicar_dano(quantidade: int) -> void:
+func aplicar_dano(quantidade: int, pode_matar: bool = true) -> void:
 	if vida_atual <= 0:
 		return
-	vida_atual = max(0, vida_atual - quantidade)
+	vida_atual = max(0 if pode_matar else 1, vida_atual - quantidade)
 	vida_alterada.emit(vida_atual, vida_maxima)
 	if vida_atual == 0:
 		morreu.emit()
