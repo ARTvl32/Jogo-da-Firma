@@ -86,3 +86,17 @@
   - **REVANCHE** — reinicia o placar e volta direto à arena com os mesmos personagens
   - **SELEÇÃO DE PERSONAGEM** — reseta a partida e vai para a tela de seleção
   - **MENU PRINCIPAL** — retorna ao menu inicial
+
+---
+
+## v0.1.2 — Polimento de Combate (em progresso)
+
+### Correções de Facing / Sprite
+- **Fix:** `sprite.flip_h` agora inicializado em `_ready()` com base em `olhando_direita` — MDK não nascia mais virado para o lado errado
+- **Fix:** `_atualizar_facing()` refatorado para priorizar o input de direção do jogador; quando parado, vira para o oponente (comportamento anterior); restrição de `is_on_floor()` removida para permitir virada no ar
+
+### Chip Damage ao Bloquear
+- `ComponenteVida.aplicar_dano()` recebe novo parâmetro `pode_matar: bool` (default `true`) — permite aplicar dano sem matar o personagem
+- HP e HK bloqueados causam **8% de chip damage** (mínimo 1 HP); LP e LK bloqueados continuam sem chip
+- Chip damage nunca mata — vida para em 1 HP
+- `levou_hit` emitido com `dano = 0` ao bloquear, permitindo que sistemas futuros (HUD, super meter) reajam ao evento
