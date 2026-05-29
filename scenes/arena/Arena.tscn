@@ -3,9 +3,20 @@
 [ext_resource type="Script" uid="uid://c8xercwe620np" path="res://scripts/arena/Arena.gd" id="1_arena"]
 [ext_resource type="PackedScene" uid="uid://c5hudscene001" path="res://scenes/hud/HUD.tscn" id="4_hud"]
 [ext_resource type="Script" uid="uid://cjxopwjlmxssx" path="res://scripts/efeitos/ScreenShake.gd" id="5_shake"]
-[ext_resource type="Texture2D" uid="uid://ucyt1nwlje3v" path="res://assets/sprites/arena/NightForest/Image.png" id="6_bg"]
 [ext_resource type="Texture2D" uid="uid://bdabx7b7dsr2q" path="res://assets/sprites/arena/floor_tile.png" id="7_floor"]
 [ext_resource type="FontFile" uid="uid://b7fde5bu10h44" path="res://assets/fonts/cityburn.ttf" id="8_font"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0011_0.png" id="bg_00"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0010_1.png" id="bg_01"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0009_2.png" id="bg_02"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0008_3.png" id="bg_03"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0007_Lights.png" id="bg_04"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0006_4.png" id="bg_05"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0005_5.png" id="bg_06"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0004_Lights.png" id="bg_07"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0003_6.png" id="bg_08"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0002_7.png" id="bg_09"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0001_8.png" id="bg_10"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arena/ForestBg/Layer_0000_9.png" id="bg_11"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
 size = Vector2(2000, 40)
@@ -19,13 +30,102 @@ size = Vector2(40, 800)
 [node name="Arena" type="Node2D" unique_id=793639404]
 script = ExtResource("1_arena")
 
-[node name="Background" type="TextureRect" parent="." unique_id=494157354]
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 1278.0
-offset_bottom = 718.0
-scale = Vector2(2.061941, 2.0176814)
-texture = ExtResource("6_bg")
+[node name="BackgroundParallax" type="Node2D" parent="." unique_id=800000001]
+
+[node name="CamadaBg0" type="TextureRect" parent="BackgroundParallax" unique_id=800000010]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_00")
+stretch_mode = 1
+
+[node name="CamadaBg1" type="TextureRect" parent="BackgroundParallax" unique_id=800000011]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_01")
+stretch_mode = 1
+
+[node name="CamadaBg2" type="TextureRect" parent="BackgroundParallax" unique_id=800000012]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_02")
+stretch_mode = 1
+
+[node name="CamadaBg3" type="TextureRect" parent="BackgroundParallax" unique_id=800000013]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_03")
+stretch_mode = 1
+
+[node name="CamadaBg4" type="TextureRect" parent="BackgroundParallax" unique_id=800000014]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_04")
+stretch_mode = 1
+
+[node name="CamadaBg5" type="TextureRect" parent="BackgroundParallax" unique_id=800000015]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_05")
+stretch_mode = 1
+
+[node name="CamadaBg6" type="TextureRect" parent="BackgroundParallax" unique_id=800000016]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_06")
+stretch_mode = 1
+
+[node name="CamadaBg7" type="TextureRect" parent="BackgroundParallax" unique_id=800000017]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_07")
+stretch_mode = 1
+
+[node name="CamadaBg8" type="TextureRect" parent="BackgroundParallax" unique_id=800000018]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_08")
+stretch_mode = 1
+
+[node name="CamadaBg9" type="TextureRect" parent="BackgroundParallax" unique_id=800000019]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_09")
+stretch_mode = 1
+
+[node name="CamadaBg10" type="TextureRect" parent="BackgroundParallax" unique_id=800000020]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_10")
+stretch_mode = 1
+
+[node name="CamadaBg11" type="TextureRect" parent="BackgroundParallax" unique_id=800000021]
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 1440.0
+offset_bottom = 720.0
+texture = ExtResource("bg_11")
 stretch_mode = 1
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=1069254720]
@@ -79,33 +179,20 @@ metadata/_edit_use_anchors_ = true
 [node name="PainelRoundVitoria" type="Control" parent="." unique_id=222000001]
 process_mode = 3
 visible = false
-layout_mode = 3
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 640.0
-offset_top = 358.0
-offset_right = 640.0
-offset_bottom = 358.0
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="Overlay" type="ColorRect" parent="PainelRoundVitoria" unique_id=222000002]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 color = Color(0, 0, 0, 0.65)
-metadata/_edit_use_anchors_ = true
 
 [node name="Centro" type="CenterContainer" parent="PainelRoundVitoria" unique_id=222000003]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="VBox" type="VBoxContainer" parent="PainelRoundVitoria/Centro" unique_id=222000004]
 layout_mode = 2

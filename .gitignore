@@ -11,3 +11,6 @@ Thumbs.db
 # Editor
 *.tmp
 *.bak
+
+# Features temporárias (desenvolvimento local)
+TEMP_FEATURES.md

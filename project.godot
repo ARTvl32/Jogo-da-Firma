@@ -24,6 +24,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/sistemas/GameManager.gd"
 GeradorSom="*res://scripts/sistemas/GeradorSom.gd"
+ControlsManager="*res://scripts/sistemas/ControlsManager.gd"
 
 [display]
 
@@ -131,7 +132,7 @@ p2_hk={
 }
 p2_block={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":47,"physical_keycode":47,"key_label":47,"unicode":47,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":199,"physical_keycode":0,"key_label":199,"unicode":231,"location":0,"echo":false,"script":null)
 ]
 }
 ui_pause={

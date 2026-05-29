@@ -62,7 +62,7 @@ Round Start → Combate (footsies, whiff punish, mix-up) → KO ou Time Up → P
 | Ação | Jogador 1 | Jogador 2 |
 |---|---|---|
 | Mover | `WASD` | `Setas` |
-| Light Punch | `U` | `L` |
+| Light Punch | `U` | `L` |l
 | Light Kick | `J` | `,` |
 | Heavy Punch | `I` | `;` |
 | Heavy Kick | `K` | `.` |

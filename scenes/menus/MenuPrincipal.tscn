@@ -121,9 +121,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -140.0
-offset_top = 333.0
+offset_top = 293.0
 offset_right = 80.0
-offset_bottom = 553.0
+offset_bottom = 633.0
 grow_horizontal = 2
 scale = Vector2(1.3, 1.3)
 theme_override_constants/separation = 20
@@ -147,6 +147,16 @@ theme_override_styles/pressed = SubResource("BtnPressed")
 theme_override_styles/hover = SubResource("BtnHover")
 theme_override_styles/focus = SubResource("BtnFocus")
 text = "OPCOES"
+
+[node name="BotaoControles" type="Button" parent="VBoxContainer" unique_id=2034587231]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("BtnNormal")
+theme_override_styles/pressed = SubResource("BtnPressed")
+theme_override_styles/hover = SubResource("BtnHover")
+theme_override_styles/focus = SubResource("BtnFocus")
+text = "CONTROLES"
 
 [node name="BotaoSair" type="Button" parent="VBoxContainer" unique_id=1918119084]
 custom_minimum_size = Vector2(220, 60)

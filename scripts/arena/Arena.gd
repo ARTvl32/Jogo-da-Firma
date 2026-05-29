@@ -21,14 +21,26 @@ const CENA_MDK: PackedScene = preload("res://scenes/fighters/personagens/MDK/MDK
 @onready var label_rvc_round: Label = $PainelRoundVitoria/Centro/VBox/LabelRound
 @onready var label_rvc_nome: Label = $PainelRoundVitoria/Centro/VBox/LabelVencedor
 @onready var label_rvc_continua: Label = $PainelRoundVitoria/Centro/VBox/LabelContinua
+@onready var parallax_bg: Node2D = $BackgroundParallax
+
+# Fatores por camada (0=mais funda/céu, 11=mais próxima).
+# Valor p: 0.0=fixa na tela, 1.0=move com o mundo.
+# Derivado do midpoint dos fighters pois a câmera é fixa (limits == viewport).
+const FATORES_PARALLAX: Array[float] = [
+	0.80, 0.82, 0.83, 0.84, 0.83, 0.85,
+	0.86, 0.85, 0.87, 0.88, 0.89, 0.90,
+]
 
 var fighter1: FighterBase
 var fighter2: FighterBase
 var tempo_restante: int = 99
 var round_em_andamento: bool = false
+var _camadas_bg: Array[TextureRect] = []
 
 func _ready() -> void:
 	_instanciar_fighters()
+	for filho: Node in parallax_bg.get_children():
+		_camadas_bg.append(filho as TextureRect)
 	tempo_restante = duracao_round_segundos
 	fighter1.definir_oponente(fighter2)
 	fighter2.definir_oponente(fighter1)
@@ -65,6 +77,7 @@ func _instanciar_fighters() -> void:
 
 func _process(_delta: float) -> void:
 	_atualizar_camera()
+	_atualizar_parallax()
 
 func _iniciar_round() -> void:
 	round_em_andamento = true
@@ -96,6 +109,11 @@ func _ao_fighter_morrer(quem_venceu: int) -> void:
 func _encerrar_round(vencedor: int) -> void:
 	round_em_andamento = false
 	timer_round.stop()
+	# TEMP: congela personagens ao fim do round enquanto animações de vitória não existem
+	fighter1.velocity = Vector2.ZERO
+	fighter2.velocity = Vector2.ZERO
+	fighter1.set_process_mode(Node.PROCESS_MODE_DISABLED)
+	fighter2.set_process_mode(Node.PROCESS_MODE_DISABLED)
 	if vencedor == 1:
 		GameManager.rounds_p1 += 1
 	elif vencedor == 2:
@@ -144,6 +162,17 @@ func _atualizar_camera() -> void:
 		return
 	var meio_x: float = (fighter1.global_position.x + fighter2.global_position.x) * 0.5
 	camera.global_position.x = lerp(camera.global_position.x, meio_x, 0.1)
+
+func _atualizar_parallax() -> void:
+	if fighter1 == null or fighter2 == null:
+		return
+	var mid: float = (fighter1.global_position.x + fighter2.global_position.x) * 0.5
+	var desloc: float = mid - 640.0
+	for i: int in range(_camadas_bg.size()):
+		var p: float = FATORES_PARALLAX[i] if i < FATORES_PARALLAX.size() else 0.85
+		var shift: float = round(desloc * (1.0 - p))
+		_camadas_bg[i].offset_left = -160.0 + shift
+		_camadas_bg[i].offset_right = 1440.0 + shift
 
 func _on_acerto(_alvo: Node, atacante: FighterBase) -> void:
 	var pos: Vector2 = (atacante.global_position + atacante.conhece_oponente.global_position) * 0.5

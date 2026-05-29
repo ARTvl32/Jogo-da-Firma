@@ -2,6 +2,7 @@ extends Control
 
 @onready var botao_versus: Button = $VBoxContainer/BotaoVersus
 @onready var botao_opcoes: Button = $VBoxContainer/BotaoOpcoes
+@onready var botao_controles: Button = $VBoxContainer/BotaoControles
 @onready var botao_sair: Button = $VBoxContainer/BotaoSair
 @onready var painel_opcoes: PanelContainer = $PainelOpcoes
 @onready var slider_volume: HSlider = $PainelOpcoes/Margin/VBox/HBoxVolume/SliderVolume
@@ -11,6 +12,7 @@ extends Control
 func _ready() -> void:
 	botao_versus.pressed.connect(_on_versus)
 	botao_opcoes.pressed.connect(_on_opcoes)
+	botao_controles.pressed.connect(_on_controles)
 	botao_sair.pressed.connect(_on_sair)
 	botao_fechar.pressed.connect(_fechar_opcoes)
 	slider_volume.value_changed.connect(_on_volume_changed)
@@ -30,6 +32,9 @@ func _on_opcoes() -> void:
 func _fechar_opcoes() -> void:
 	painel_opcoes.visible = false
 	botao_opcoes.grab_focus()
+
+func _on_controles() -> void:
+	get_tree().change_scene_to_file("res://scenes/menus/TelaControles.tscn")
 
 func _on_sair() -> void:
 	get_tree().quit()
