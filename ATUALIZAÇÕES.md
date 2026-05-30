@@ -121,3 +121,4 @@
 ### Tela de Controles e Super Meter
 - **Tela de Controles** (`TelaControles.tscn`): acessível via botão "CONTROLES" no menu principal; exibe grid de ações vs. teclas de P1 e P2; permite rebind clicando no botão da tecla e pressionando a nova; botão "Restaurar" reverte aos padrões; Esc cancela rebind em andamento
 - **Super meter:** barra azul fina (`SuperBar1`/`SuperBar2`, 12 px de altura) exibida abaixo das healthbars; carrega +15% ao acertar golpes e +10% ao receber dano; reseta a 0 ao início de cada round; base estrutural para specials da v0.2 (consumo ainda não implementado)
+- **CLAUDE_3.md** gerado com roadmap da v0.1.3: 8 partes com estimativas de tokens, cobrindo hit flash, overlay FIGHT!/KO!, rematch rápido, damage numbers, landing recovery, super move, guard break, throw/grab e modo treino
