@@ -113,3 +113,7 @@
 ### HUD — Lag Bar e Indicadores de Round
 - **Lag bar KOF-style:** duas `ProgressBar` amarelas (`LagBar1`/`LagBar2`) inseridas atrás das barras principais; ao receber dano a barra principal cai imediatamente, a amarela drena ~90 HP/s até igualar — torna o dano recebido visualmente legível
 - **Indicadores de round:** `HBoxContainer` (`RoundsP1`/`RoundsP2`) exibidos logo abaixo das healthbars com estrelas ★ (preenchidas, amarelas) e ☆ (vazias, cinza); atualizados em `conectar_fighters()` e a cada `_encerrar_round()` na Arena
+
+### Ataques no Ar e Corner Clamp
+- **Ataques no ar (LP/HP):** `_processar_input()` libera LP e HP durante JUMP/FALL; LK/HK continuam exclusivos do chão (sem animação aérea dedicada na v0.1.2); `_iniciar_ataque()` não zera `velocity.x` quando no ar — personagem mantém momento do pulo
+- **Corner clamp:** `global_position.x` travado entre `40` e `1240` px após cada `move_and_slide()` — fighters não saem da tela; câmera da Arena limitada ao intervalo `[200, 1080]` para não mostrar área além dos limites

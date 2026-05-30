@@ -163,6 +163,7 @@ func _atualizar_camera() -> void:
 	if fighter1 == null or fighter2 == null:
 		return
 	var meio_x: float = (fighter1.global_position.x + fighter2.global_position.x) * 0.5
+	meio_x = clampf(meio_x, 200.0, 1080.0)
 	camera.global_position.x = lerp(camera.global_position.x, meio_x, 0.1)
 
 func _atualizar_parallax() -> void:

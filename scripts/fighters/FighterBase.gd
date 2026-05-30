@@ -95,6 +95,10 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+	# Clamp lateral — impede o fighter de sair da tela
+	const MARGEM: float = 40.0
+	global_position.x = clampf(global_position.x, MARGEM, 1280.0 - MARGEM)
+
 	frames_desde_ultimo_tap += 1
 
 func _iniciar_levantada() -> void:
@@ -121,18 +125,22 @@ func _processar_input() -> void:
 		velocity.x = 0
 		return
 
+	# LP e HP funcionam no ar e no chão
 	if _input_just_pressed("lp"):
 		_iniciar_ataque(ComponenteCombate.Estado.ATTACK_LP)
-		return
-	if _input_just_pressed("lk"):
-		_iniciar_ataque(ComponenteCombate.Estado.ATTACK_LK)
 		return
 	if _input_just_pressed("hp"):
 		_iniciar_ataque(ComponenteCombate.Estado.ATTACK_HP)
 		return
-	if _input_just_pressed("hk"):
-		_iniciar_ataque(ComponenteCombate.Estado.ATTACK_HK)
-		return
+
+	# LK e HK apenas no chão (sem animação de ar na v0.1.2)
+	if is_on_floor():
+		if _input_just_pressed("lk"):
+			_iniciar_ataque(ComponenteCombate.Estado.ATTACK_LK)
+			return
+		if _input_just_pressed("hk"):
+			_iniciar_ataque(ComponenteCombate.Estado.ATTACK_HK)
+			return
 
 	if _input_just_pressed("up") and is_on_floor():
 		velocity.y = forca_pulo
@@ -166,7 +174,8 @@ func _processar_input() -> void:
 
 func _iniciar_ataque(estado_ataque: int) -> void:
 	combate.mudar_estado(estado_ataque)
-	velocity.x = 0
+	if is_on_floor():
+		velocity.x = 0  # no ar mantém o momento do pulo
 
 func _atualizar_hitbox_por_combate() -> void:
 	if combate.hitbox_ativa:
