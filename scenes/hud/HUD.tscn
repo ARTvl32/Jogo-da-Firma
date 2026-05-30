@@ -28,6 +28,13 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="LagFill"]
+bg_color = Color(1, 0.88, 0.15, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="TimerBg"]
 bg_color = Color(0.04, 0.04, 0.1, 1)
 border_width_left = 2
@@ -129,6 +136,17 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 16
 text = "FIGHTER 1"
 
+[node name="LagBar1" type="ProgressBar" parent="." unique_id=100000001]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 35.0
+offset_right = 565.0
+offset_bottom = 65.0
+theme_override_styles/background = SubResource("BarBg")
+theme_override_styles/fill = SubResource("LagFill")
+value = 100.0
+show_percentage = false
+
 [node name="HealthBar1" type="ProgressBar" parent="." unique_id=774574968]
 layout_mode = 0
 offset_left = 40.0
@@ -151,6 +169,18 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 16
 text = "FIGHTER 2"
 horizontal_alignment = 2
+
+[node name="LagBar2" type="ProgressBar" parent="." unique_id=100000002]
+layout_mode = 0
+offset_left = 716.0
+offset_top = 35.0
+offset_right = 1240.0
+offset_bottom = 65.0
+theme_override_styles/background = SubResource("BarBg")
+theme_override_styles/fill = SubResource("LagFill")
+value = 100.0
+fill_mode = 1
+show_percentage = false
 
 [node name="HealthBar2" type="ProgressBar" parent="." unique_id=335763783]
 layout_mode = 0
@@ -216,6 +246,22 @@ offset_right = 1240.0
 offset_bottom = 92.0
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 2
+
+[node name="RoundsP1" type="HBoxContainer" parent="." unique_id=100000003]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 67.0
+offset_right = 300.0
+offset_bottom = 82.0
+theme_override_constants/separation = 6
+
+[node name="RoundsP2" type="HBoxContainer" parent="." unique_id=100000004]
+layout_mode = 0
+offset_left = 980.0
+offset_top = 67.0
+offset_right = 1240.0
+offset_bottom = 82.0
+theme_override_constants/separation = 6
 
 [node name="PainelPausa" type="Control" parent="." unique_id=919987243]
 process_mode = 3

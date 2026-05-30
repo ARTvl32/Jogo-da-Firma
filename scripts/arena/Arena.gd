@@ -119,6 +119,8 @@ func _encerrar_round(vencedor: int) -> void:
 	elif vencedor == 2:
 		GameManager.rounds_p2 += 1
 	round_terminou.emit(vencedor)
+	if hud and hud.has_method("atualizar_rounds"):
+		hud.atualizar_rounds()
 
 	var partida_encerrada: bool = (
 		GameManager.rounds_p1 >= GameManager.rounds_para_vencer or

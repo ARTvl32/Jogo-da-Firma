@@ -109,3 +109,7 @@
 - Ao se levantar: 30 frames de invencibilidade (`iframes`) — hurtbox desativada via `set_deferred`, não pode ser acertado durante a recuperação
 - Atacante não pode acertar alvo em iframes (checagem em `_on_hit_conectado`)
 - `ControladorAnimacao` mapeia `KNOCKDOWN → "hurt"` (fallback visual enquanto animação dedicada não existe)
+
+### HUD — Lag Bar e Indicadores de Round
+- **Lag bar KOF-style:** duas `ProgressBar` amarelas (`LagBar1`/`LagBar2`) inseridas atrás das barras principais; ao receber dano a barra principal cai imediatamente, a amarela drena ~90 HP/s até igualar — torna o dano recebido visualmente legível
+- **Indicadores de round:** `HBoxContainer` (`RoundsP1`/`RoundsP2`) exibidos logo abaixo das healthbars com estrelas ★ (preenchidas, amarelas) e ☆ (vazias, cinza); atualizados em `conectar_fighters()` e a cada `_encerrar_round()` na Arena
