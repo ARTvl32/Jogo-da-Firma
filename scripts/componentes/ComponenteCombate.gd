@@ -22,16 +22,21 @@ enum Estado {
 	ATTACK_HK,
 	BLOCK,
 	HURT,
+	KNOCKDOWN,
 	DEATH
 }
 
 # Frame data por tipo de ataque (em frames de 60 FPS).
-# Estrutura: { startup, active, recovery, dano, hitstun, blockstun, knockback }
+# Estrutura: { startup, active, recovery, dano, hitstun, blockstun, knockback, knockdown }
+# Vantagem no hit = hitstun - (active + recovery)
+# LP: 8 - (2+6) = 0  → neutro, não encadeia em si mesmo
+# LK: 10 - (3+8) = -1 → minus, não encadeia
+# HP/HK: causam knockdown — hitstun irrelevante
 const FRAME_DATA: Dictionary = {
-	Estado.ATTACK_LP: { "startup": 3, "active": 2, "recovery": 6, "dano": 60, "hitstun": 12, "blockstun": 8, "knockback": Vector2(120, 0) },
-	Estado.ATTACK_LK: { "startup": 4, "active": 3, "recovery": 8, "dano": 70, "hitstun": 14, "blockstun": 10, "knockback": Vector2(140, 0) },
-	Estado.ATTACK_HP: { "startup": 8, "active": 3, "recovery": 14, "dano": 120, "hitstun": 20, "blockstun": 14, "knockback": Vector2(260, -80) },
-	Estado.ATTACK_HK: { "startup": 10, "active": 4, "recovery": 18, "dano": 140, "hitstun": 22, "blockstun": 16, "knockback": Vector2(300, -100) },
+	Estado.ATTACK_LP: { "startup": 3, "active": 2, "recovery": 6,  "dano": 60,  "hitstun": 8,  "blockstun": 6,  "knockback": Vector2(100, 0),    "knockdown": false },
+	Estado.ATTACK_LK: { "startup": 4, "active": 3, "recovery": 8,  "dano": 70,  "hitstun": 10, "blockstun": 8,  "knockback": Vector2(130, 0),    "knockdown": false },
+	Estado.ATTACK_HP: { "startup": 8, "active": 3, "recovery": 14, "dano": 120, "hitstun": 0,  "blockstun": 14, "knockback": Vector2(400, -200), "knockdown": true  },
+	Estado.ATTACK_HK: { "startup": 10,"active": 4, "recovery": 18, "dano": 140, "hitstun": 0,  "blockstun": 16, "knockback": Vector2(460, -240), "knockdown": true  },
 }
 
 var estado_atual: int = Estado.IDLE
@@ -80,3 +85,6 @@ func pode_atacar() -> bool:
 
 func esta_bloqueando() -> bool:
 	return estado_atual == Estado.BLOCK
+
+func esta_em_knockdown() -> bool:
+	return estado_atual == Estado.KNOCKDOWN

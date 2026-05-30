@@ -100,3 +100,12 @@
 - HP e HK bloqueados causam **8% de chip damage** (mínimo 1 HP); LP e LK bloqueados continuam sem chip
 - Chip damage nunca mata — vida para em 1 HP
 - `levou_hit` emitido com `dano = 0` ao bloquear, permitindo que sistemas futuros (HUD, super meter) reajam ao evento
+
+### Sistema de Knockdown (HP/HK) e correção de loop infinito
+- **Fix (frame data):** hitstun de LP reduzido de 12 → 8 (vantagem no hit = 0, não encadeia em si mesmo); LK de 14 → 10 (vantagem = -1). Encadeamento infinito por spam de light attacks eliminado matematicamente
+- **Novo estado `KNOCKDOWN`** adicionado à FSM de `ComponenteCombate`
+- HP e HK agora causam knockdown (derrubam o defensor) em vez de hitstun simples — knockback forte (`Vector2(400,-200)` e `Vector2(460,-240)`)
+- Defensor permanece no chão por 70 frames (~1.2 s) durante o knockdown, sem poder agir
+- Ao se levantar: 30 frames de invencibilidade (`iframes`) — hurtbox desativada via `set_deferred`, não pode ser acertado durante a recuperação
+- Atacante não pode acertar alvo em iframes (checagem em `_on_hit_conectado`)
+- `ControladorAnimacao` mapeia `KNOCKDOWN → "hurt"` (fallback visual enquanto animação dedicada não existe)

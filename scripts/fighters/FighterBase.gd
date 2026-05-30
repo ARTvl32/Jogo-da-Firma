@@ -23,7 +23,12 @@ extends CharacterBody2D
 var hitstop_frames: int = 0
 var hitstun_frames: int = 0
 var blockstun_frames: int = 0
+var knockdown_frames: int = 0
+var iframes_restantes: int = 0
 var conhece_oponente: FighterBase = null
+
+const KNOCKDOWN_DURACAO: int = 70   # frames no chão (~1.2s)
+const IFRAMES_LEVANTADA: int = 30   # frames de invencibilidade ao levantar (~0.5s)
 
 var gravidade: float = ProjectSettings.get_setting("physics/2d/default_gravity", 980.0)
 
@@ -50,6 +55,24 @@ func _physics_process(delta: float) -> void:
 
 	_atualizar_facing()
 
+	# --- Knockdown ---
+	if knockdown_frames > 0:
+		knockdown_frames -= 1
+		velocity.x = move_toward(velocity.x, 0.0, 300.0 * delta)
+		if not is_on_floor():
+			velocity.y += gravidade * delta
+		move_and_slide()
+		frames_desde_ultimo_tap += 1
+		if knockdown_frames == 0:
+			_iniciar_levantada()
+		return
+
+	# --- Invencibilidade pós-knockdown ---
+	if iframes_restantes > 0:
+		iframes_restantes -= 1
+		if iframes_restantes == 0:
+			_terminar_levantada()
+
 	if hitstun_frames > 0:
 		hitstun_frames -= 1
 		if hitstun_frames == 0 and combate.estado_atual == ComponenteCombate.Estado.HURT:
@@ -63,7 +86,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravidade * delta
 
-	if hitstun_frames == 0 and blockstun_frames == 0:
+	if hitstun_frames == 0 and blockstun_frames == 0 and iframes_restantes == 0:
 		_processar_input()
 
 	combate.tick()
@@ -73,6 +96,17 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	frames_desde_ultimo_tap += 1
+
+func _iniciar_levantada() -> void:
+	combate.mudar_estado(ComponenteCombate.Estado.IDLE)
+	iframes_restantes = IFRAMES_LEVANTADA
+	# Desativa hurtbox durante os iframes
+	var hb_shape: CollisionShape2D = hurtbox.get_node("CollisionShape2D")
+	hb_shape.set_deferred("disabled", true)
+
+func _terminar_levantada() -> void:
+	var hb_shape: CollisionShape2D = hurtbox.get_node("CollisionShape2D")
+	hb_shape.set_deferred("disabled", false)
 
 func _processar_input() -> void:
 	if combate.eh_estado_de_ataque(combate.estado_atual):
@@ -168,7 +202,6 @@ func _atualizar_facing() -> void:
 
 func _atualizar_posicao_hitbox() -> void:
 	var shape: CollisionShape2D = hitbox.get_node("CollisionShape2D")
-	# Espelha o offset X conforme a direção que o fighter olha
 	shape.position.x = 60.0 if olhando_direita else -60.0
 
 func _direcao_horizontal() -> float:
@@ -202,6 +235,9 @@ func _on_hit_conectado(hurtbox_inimiga: Hurtbox) -> void:
 	var alvo: FighterBase = hurtbox_inimiga.dono as FighterBase
 	if alvo == null:
 		return
+	# Não acerta durante iframes de levantada
+	if alvo.iframes_restantes > 0:
+		return
 	hitbox.desativar()
 	var fd: Dictionary = ComponenteCombate.FRAME_DATA.get(combate.estado_atual, {})
 	if fd.is_empty():
@@ -210,14 +246,17 @@ func _on_hit_conectado(hurtbox_inimiga: Hurtbox) -> void:
 	var hitstun: int = fd["hitstun"]
 	var blockstun: int = fd["blockstun"]
 	var knockback: Vector2 = fd["knockback"]
+	var knockdown: bool = fd.get("knockdown", false)
 	if not olhando_direita:
 		knockback.x = -knockback.x
-	alvo.receber_hit(self, dano, hitstun, blockstun, knockback)
+	alvo.receber_hit(self, dano, hitstun, blockstun, knockback, knockdown)
 	combate.acertou.emit(alvo)
 	GeradorSom.tocar("hit_pesado" if dano >= 100 else "hit_leve")
 
-func receber_hit(atacante: FighterBase, dano: int, hitstun: int, blockstun: int, knockback: Vector2) -> void:
+func receber_hit(atacante: FighterBase, dano: int, hitstun: int, blockstun: int, knockback: Vector2, knockdown: bool = false) -> void:
 	if combate.estado_atual == ComponenteCombate.Estado.DEATH:
+		return
+	if combate.estado_atual == ComponenteCombate.Estado.KNOCKDOWN:
 		return
 	if combate.esta_bloqueando():
 		blockstun_frames = blockstun
@@ -230,10 +269,19 @@ func receber_hit(atacante: FighterBase, dano: int, hitstun: int, blockstun: int,
 		combate.levou_hit.emit(atacante, 0, knockback)
 		return
 	vida.aplicar_dano(dano)
-	hitstun_frames = hitstun
-	velocity = knockback
-	combate.mudar_estado(ComponenteCombate.Estado.HURT)
-	_aplicar_hitstop(8)
+	if vida.vida_atual == 0:
+		return  # morreu() já vai tratar
+	if knockdown:
+		velocity = knockback
+		knockdown_frames = KNOCKDOWN_DURACAO
+		hitstun_frames = 0
+		combate.mudar_estado(ComponenteCombate.Estado.KNOCKDOWN)
+		_aplicar_hitstop(12)
+	else:
+		hitstun_frames = hitstun
+		velocity = knockback
+		combate.mudar_estado(ComponenteCombate.Estado.HURT)
+		_aplicar_hitstop(8)
 	combate.levou_hit.emit(atacante, dano, knockback)
 
 func _aplicar_hitstop(frames: int) -> void:

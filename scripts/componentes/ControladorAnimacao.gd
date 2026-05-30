@@ -22,6 +22,7 @@ const MAPA_ANIMACAO: Dictionary = {
 	ComponenteCombate.Estado.ATTACK_HK:  "attack_hk",
 	ComponenteCombate.Estado.BLOCK:      "block",
 	ComponenteCombate.Estado.HURT:       "hurt",
+	ComponenteCombate.Estado.KNOCKDOWN: "hurt",
 	ComponenteCombate.Estado.DEATH:      "death",
 }
 
