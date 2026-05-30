@@ -35,6 +35,20 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="SuperFill"]
+bg_color = Color(0.08, 0.74, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="SuperBg"]
+bg_color = Color(0.04, 0.04, 0.1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [sub_resource type="StyleBoxFlat" id="TimerBg"]
 bg_color = Color(0.04, 0.04, 0.1, 1)
 border_width_left = 2
@@ -122,7 +136,7 @@ script = ExtResource("1_hud")
 [node name="FundoTopo" type="ColorRect" parent="." unique_id=1586989174]
 layout_mode = 0
 offset_right = 1280.0
-offset_bottom = 82.0
+offset_bottom = 100.0
 color = Color(0, 0, 0, 1)
 
 [node name="NomeP1" type="Label" parent="." unique_id=557242396]
@@ -246,6 +260,29 @@ offset_right = 1240.0
 offset_bottom = 92.0
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 2
+
+[node name="SuperBar1" type="ProgressBar" parent="." unique_id=100000005]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 84.0
+offset_right = 565.0
+offset_bottom = 96.0
+theme_override_styles/background = SubResource("SuperBg")
+theme_override_styles/fill = SubResource("SuperFill")
+value = 0.0
+show_percentage = false
+
+[node name="SuperBar2" type="ProgressBar" parent="." unique_id=100000006]
+layout_mode = 0
+offset_left = 716.0
+offset_top = 84.0
+offset_right = 1240.0
+offset_bottom = 96.0
+theme_override_styles/background = SubResource("SuperBg")
+theme_override_styles/fill = SubResource("SuperFill")
+value = 0.0
+fill_mode = 1
+show_percentage = false
 
 [node name="RoundsP1" type="HBoxContainer" parent="." unique_id=100000003]
 layout_mode = 0

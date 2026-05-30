@@ -11,6 +11,8 @@ extends Control
 @onready var combo_p2: Label = $ComboLabel2
 @onready var nome_p1: Label = $NomeP1
 @onready var nome_p2: Label = $NomeP2
+@onready var super_p1: ProgressBar = $SuperBar1
+@onready var super_p2: ProgressBar = $SuperBar2
 @onready var rounds_p1: HBoxContainer = $RoundsP1
 @onready var rounds_p2: HBoxContainer = $RoundsP2
 @onready var painel_pausa: Control = $PainelPausa
@@ -109,6 +111,13 @@ func conectar_fighters(p1: FighterBase, p2: FighterBase) -> void:
 	p2.vida.vida_alterada.connect(func(atual: int, _max: int): bar_p2.value = atual)
 	p1.combate.acertou.connect(func(_alvo): _registrar_hit(1))
 	p2.combate.acertou.connect(func(_alvo): _registrar_hit(2))
+
+	super_p1.max_value = FighterBase.SUPER_MAXIMO
+	super_p2.max_value = FighterBase.SUPER_MAXIMO
+	super_p1.value = p1.super_atual
+	super_p2.value = p2.super_atual
+	p1.super_alterado.connect(func(atual, _max): super_p1.value = atual)
+	p2.super_alterado.connect(func(atual, _max): super_p2.value = atual)
 
 	atualizar_rounds()
 

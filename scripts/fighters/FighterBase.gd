@@ -27,8 +27,16 @@ var knockdown_frames: int = 0
 var iframes_restantes: int = 0
 var conhece_oponente: FighterBase = null
 
-const KNOCKDOWN_DURACAO: int = 70   # frames no chão (~1.2s)
-const IFRAMES_LEVANTADA: int = 30   # frames de invencibilidade ao levantar (~0.5s)
+const KNOCKDOWN_DURACAO: int = 70
+const IFRAMES_LEVANTADA: int = 30
+
+# Super meter
+var super_atual: float = 0.0
+const SUPER_MAXIMO: float = 100.0
+const SUPER_POR_HIT_DADO: float = 15.0
+const SUPER_POR_HIT_RECEBIDO: float = 10.0
+
+signal super_alterado(atual: float, maximo: float)
 
 var gravidade: float = ProjectSettings.get_setting("physics/2d/default_gravity", 980.0)
 
@@ -47,6 +55,8 @@ func _ready() -> void:
 	hitbox.desativar()
 	_atualizar_posicao_hitbox()
 	sprite.flip_h = not olhando_direita
+	combate.acertou.connect(_on_acertou_super)
+	combate.levou_hit.connect(_on_levou_hit_super)
 
 func _physics_process(delta: float) -> void:
 	if hitstop_frames > 0:
@@ -306,3 +316,18 @@ func _on_morreu() -> void:
 
 func definir_oponente(outro: FighterBase) -> void:
 	conhece_oponente = outro
+
+func _on_acertou_super(_alvo: Node) -> void:
+	_ganhar_super(SUPER_POR_HIT_DADO)
+
+func _on_levou_hit_super(_atacante: Node, dano: int, _kb: Vector2) -> void:
+	if dano > 0:
+		_ganhar_super(SUPER_POR_HIT_RECEBIDO)
+
+func _ganhar_super(quantidade: float) -> void:
+	super_atual = minf(super_atual + quantidade, SUPER_MAXIMO)
+	super_alterado.emit(super_atual, SUPER_MAXIMO)
+
+func resetar_super() -> void:
+	super_atual = 0.0
+	super_alterado.emit(0.0, SUPER_MAXIMO)

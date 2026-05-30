@@ -117,3 +117,7 @@
 ### Ataques no Ar e Corner Clamp
 - **Ataques no ar (LP/HP):** `_processar_input()` libera LP e HP durante JUMP/FALL; LK/HK continuam exclusivos do chão (sem animação aérea dedicada na v0.1.2); `_iniciar_ataque()` não zera `velocity.x` quando no ar — personagem mantém momento do pulo
 - **Corner clamp:** `global_position.x` travado entre `40` e `1240` px após cada `move_and_slide()` — fighters não saem da tela; câmera da Arena limitada ao intervalo `[200, 1080]` para não mostrar área além dos limites
+
+### Tela de Controles e Super Meter
+- **Tela de Controles** (`TelaControles.tscn`): acessível via botão "CONTROLES" no menu principal; exibe grid de ações vs. teclas de P1 e P2; permite rebind clicando no botão da tecla e pressionando a nova; botão "Restaurar" reverte aos padrões; Esc cancela rebind em andamento
+- **Super meter:** barra azul fina (`SuperBar1`/`SuperBar2`, 12 px de altura) exibida abaixo das healthbars; carrega +15% ao acertar golpes e +10% ao receber dano; reseta a 0 ao início de cada round; base estrutural para specials da v0.2 (consumo ainda não implementado)
